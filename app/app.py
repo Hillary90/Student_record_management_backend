@@ -40,9 +40,6 @@ class Student(db.Model):
 def home():
     return "Student Management App is running"
 
-# ----------------------
-# CREATE
-# ----------------------
 @app.route("/api/students", methods=["POST"])
 def add_student():
     data = request.get_json()
@@ -69,25 +66,17 @@ def add_student():
         db.session.rollback()
         return jsonify({"error": "Email or admission number already exists"}), 400
 
-# ----------------------
-# READ ALL
-# ----------------------
+
 @app.route("/api/students", methods=["GET"])
 def get_students():
     students = Student.query.all()
     return jsonify([student.to_dict() for student in students]), 200
 
-# ----------------------
-# READ ONE
-# ----------------------
 @app.route("/api/students/<int:id>", methods=["GET"])
 def get_student(id):
     student = Student.query.get_or_404(id)
     return jsonify(student.to_dict()), 200
 
-# ----------------------
-# UPDATE
-# ----------------------
 @app.route("/api/students/<int:id>", methods=["PUT"])
 def update_student(id):
     student = Student.query.get_or_404(id)
@@ -112,17 +101,13 @@ def update_student(id):
         db.session.rollback()
         return jsonify({"error": "Email or admission number already exists"}), 400
 
-# ----------------------
-# DELETE
-# ----------------------
 @app.route("/api/students/<int:id>", methods=["DELETE"])
 def delete_student(id):
     student = Student.query.get_or_404(id)
     db.session.delete(student)
     db.session.commit()
     return jsonify({"message": f"Student {id} deleted successfully"}), 200
-
-# ----------------------
+  
 if __name__ == "__main__":
     app.run(debug=True)
 
