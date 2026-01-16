@@ -1,18 +1,11 @@
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class Config:
-    # Secret key for sessions and JWT
-    SECRET_KEY = os.getenv("SECRET_KEY", "dev_secret")
-
-    # Database connection (SQLite by default)
-    SQLALCHEMY_DATABASE_URI = os.getenv(
-        "DATABASE_URL",
-        "sqlite:///app.db"
-    )
+    SECRET_KEY = os.getenv("SECRET_KEY", "supersecretkey")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-
-    # CORS settings (frontend dev servers)
-    CORS_ORIGINS = [
-        "http://localhost:5173",   # Vite default port
-        "http://localhost:3000"    # React default port
-    ]
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL", "sqlite:///mvp.db")
+    JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", "jwtsecretkey")
+    CORS_HEADERS = "Content-Type"
