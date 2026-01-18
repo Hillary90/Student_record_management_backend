@@ -23,13 +23,13 @@ def get_grades():
     if subject:
         query = query.filter_by(subject=subject)
     if term:
-        query = query. filter_by(term=term)
+        query = query.filter_by(term=term)
     if year:
         query = query.filter_by(year=int(year))
     
     grades = query.all()
     return jsonify({
-        'count':  len(grades),
+        'count': len(grades),
         'grades': [grade.to_dict() for grade in grades]
     }), 200
 
@@ -37,14 +37,14 @@ def get_grades():
 @jwt_required()
 def get_grade(grade_id):
     """Get a single grade by ID"""
-    grade = Grade.query. get(grade_id)
+    grade = Grade.query.get(grade_id)
     
     if not grade:
         return jsonify({'error': 'Grade not found'}), 404
     
     return jsonify({'grade': grade.to_dict()}), 200
 
-@grades_bp. route('', methods=['POST'])
+@grades_bp.route('', methods=['POST'])
 @jwt_required()
 def create_grade():
     """Create a new grade record"""
@@ -56,9 +56,9 @@ def create_grade():
         return jsonify({'error': 'Missing required fields'}), 400
     
     # Verify student exists
-    student = Student. query.get(data['student_id'])
+    student = Student.query.get(data['student_id'])
     if not student: 
-        return jsonify({'error':  'Student not found'}), 404
+        return jsonify({'error': 'Student not found'}), 404
     
     try:
         # Create new grade
@@ -66,14 +66,14 @@ def create_grade():
             student_id=data['student_id'],
             subject=data['subject'],
             score=float(data['score']),
-            max_score=float(data. get('max_score', 100.0)),
+            max_score=float(data.get('max_score', 100.0)),
             term=data['term'],
             year=int(data['year']),
             remarks=data.get('remarks')
         )
         
         db.session.add(grade)
-        db.session. commit()
+        db.session.commit()
         
         return jsonify({
             'message': 'Grade created successfully',
@@ -99,7 +99,7 @@ def update_grade(grade_id):
     try:
         # Update fields if provided
         if 'subject' in data:
-            grade. subject = data['subject']
+            grade.subject = data['subject']
         if 'score' in data: 
             grade.score = float(data['score'])
         if 'max_score' in data: 
@@ -109,21 +109,21 @@ def update_grade(grade_id):
         if 'year' in data:
             grade.year = int(data['year'])
         if 'remarks' in data:
-            grade. remarks = data['remarks']
+            grade.remarks = data['remarks']
         
         db.session.commit()
         
         return jsonify({
             'message': 'Grade updated successfully',
-            'grade':  grade.to_dict()
+            'grade': grade.to_dict()
         }), 200
     except ValueError:
         return jsonify({'error': 'Invalid numeric value'}), 400
     except Exception as e:
-        db.session. rollback()
+        db.session.rollback()
         return jsonify({'error': str(e)}), 500
 
-@grades_bp. route('/<int:grade_id>', methods=['DELETE'])
+@grades_bp.route('/<int:grade_id>', methods=['DELETE'])
 @jwt_required()
 def delete_grade(grade_id):
     """Delete a grade"""
@@ -153,7 +153,7 @@ def get_student_grade_summary(student_id):
     
     if not grades:
         return jsonify({
-            'student':  student.to_dict(),
+            'student': student.to_dict(),
             'summary': {
                 'total_subjects': 0,
                 'average_score': 0,
@@ -167,10 +167,10 @@ def get_student_grade_summary(student_id):
     average_percentage = total_percentage / len(grades)
     
     return jsonify({
-        'student':  student.to_dict(),
+        'student': student.to_dict(),
         'summary': {
             'total_subjects': len(grades),
             'average_percentage': round(average_percentage, 2)
         },
-        'grades':  [grade.to_dict() for grade in grades]
+        'grades': [grade.to_dict() for grade in grades]
     }), 200
