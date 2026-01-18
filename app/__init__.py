@@ -20,11 +20,25 @@ def create_app(config_name='default'):
     app.config.from_object(config[config_name])
     
     # Initialize extensions
-    db.init_app(app)
+    db. init_app(app)
     migrate.init_app(app, db)
     jwt.init_app(app)
     bcrypt.init_app(app)
     CORS(app, origins=app.config['CORS_ORIGINS'])
+    
+    # JWT user loader callbacks
+    from app.models.user import User
+    
+    @jwt.user_identity_loader
+    def user_identity_lookup(user):
+        """Convert User object to user ID for JWT"""
+        return user.id
+    
+    @jwt.user_lookup_loader
+    def user_lookup_callback(_jwt_header, jwt_data):
+        """Load user from JWT token"""
+        identity = jwt_data["sub"]
+        return User.query.filter_by(id=identity).one_or_none()
     
     # Register blueprints
     from app.routes. auth import auth_bp
@@ -36,8 +50,8 @@ def create_app(config_name='default'):
     app.register_blueprint(grades_bp, url_prefix='/api/grades')
     
     # Health check route
-    @app.route('/api/health')
+    @app. route('/api/health')
     def health_check():
-        return {'status':  'healthy', 'message': 'Student Record Management API is running'}, 200
+        return {'status':  'healthy', 'message':  'Student Record Management API is running'}, 200
     
     return app
