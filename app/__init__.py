@@ -26,15 +26,10 @@ def create_app(config_name='default'):
     bcrypt.init_app(app)
     CORS(app, origins=app.config['CORS_ORIGINS'])
     
-    # JWT user loader callbacks
+    # JWT user lookup callback
     from app.models.user import User
     
-    @jwt.user_identity_loader
-    def user_identity_lookup(user):
-        """Convert User object to user ID for JWT"""
-        return user.id
-    
-    @jwt.user_lookup_loader
+    @jwt. user_lookup_loader
     def user_lookup_callback(_jwt_header, jwt_data):
         """Load user from JWT token"""
         identity = jwt_data["sub"]
