@@ -14,7 +14,7 @@ class Grade(db.Model):
     year = db.Column(db.Integer, nullable=False)
     remarks = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db. DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
     def get_percentage(self):
         """Calculate percentage score"""
@@ -41,15 +41,15 @@ class Grade(db.Model):
             'student_id': self.student_id,
             'subject': self.subject,
             'score': self.score,
-            'max_score': self. max_score,
+            'max_score': self.max_score,
             'percentage': round(self.get_percentage(), 2),
             'grade_letter': self.get_grade_letter(),
             'term': self.term,
             'year': self.year,
             'remarks': self.remarks,
-            'created_at': self. created_at.isoformat(),
+            'created_at': self.created_at.isoformat(),
             'updated_at': self.updated_at.isoformat()
         }
     
     def __repr__(self):
-        return f'<Grade {self. subject}:  {self.score}/{self.max_score}>'
+        return f'<Grade {self.subject}: {self.score}/{self.max_score}>'
