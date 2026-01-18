@@ -24,7 +24,7 @@ def register():
     
     # Validate role
     if data['role'] not in ['admin', 'teacher']:
-        return jsonify({'error': 'Invalid role.  Must be admin or teacher'}), 400
+        return jsonify({'error': 'Invalid role. Must be admin or teacher'}), 400
     
     # Create new user
     user = User(
@@ -35,36 +35,36 @@ def register():
     user.set_password(data['password'])
     
     try:
-        db.session. add(user)
+        db.session.add(user)
         db.session.commit()
         return jsonify({
             'message': 'User registered successfully',
             'user': user.to_dict()
         }), 201
     except Exception as e:
-        db.session. rollback()
+        db.session.rollback()
         return jsonify({'error': str(e)}), 500
 
 @auth_bp.route('/login', methods=['POST'])
 def login():
     """Login user and return JWT token"""
-    data = request. get_json()
+    data = request.get_json()
     
     # Validate required fields
-    if not data. get('username') or not data.get('password'):
+    if not data.get('username') or not data.get('password'):
         return jsonify({'error': 'Username and password are required'}), 400
     
     # Find user
     user = User.query.filter_by(username=data['username']).first()
     
-    if not user or not user. check_password(data['password']):
+    if not user or not user.check_password(data['password']):
         return jsonify({'error': 'Invalid username or password'}), 401
     
     # Create access token
     access_token = create_access_token(identity=user.id)
     
     return jsonify({
-        'message':  'Login successful',
+        'message': 'Login successful',
         'access_token': access_token,
         'user': user.to_dict()
     }), 200
