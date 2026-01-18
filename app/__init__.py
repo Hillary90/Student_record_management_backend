@@ -16,14 +16,11 @@ def create_app(config_name='default'):
     """Application factory pattern"""
     app = Flask(__name__)
     
-    # Disable strict slashes to prevent 308 redirects on OPTIONS requests
-    app.url_map.strict_slashes = False
-    
     # Load configuration
     app.config.from_object(config[config_name])
     
     # Initialize extensions
-    db.init_app(app)
+    db. init_app(app)
     migrate.init_app(app, db)
     jwt.init_app(app)
     bcrypt.init_app(app)
@@ -47,7 +44,7 @@ def create_app(config_name='default'):
 
     @jwt.expired_token_loader
     def expired_token_callback(jwt_header, jwt_data):
-        return jsonify({'error':  'Token has expired'}), 401
+        return jsonify({'error': 'Token has expired'}), 401
     
     # JWT user lookup callback
     from app.models.user import User
