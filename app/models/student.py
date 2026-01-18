@@ -32,15 +32,15 @@ class Student(db.Model):
             'last_name': self.last_name,
             'full_name': f"{self.first_name} {self.last_name}",
             'date_of_birth': self.date_of_birth.isoformat() if self.date_of_birth else None,
-            'gender':  self.gender,
+            'gender': self.gender,
             'class_name': self.class_name,
-            'email': self. email,
+            'email': self.email,
             'phone': self.phone,
-            'address':  self.address,
+            'address': self.address,
             'guardian_name': self.guardian_name,
-            'guardian_phone':  self.guardian_phone,
+            'guardian_phone': self.guardian_phone,
             'created_at': self.created_at.isoformat(),
-            'updated_at': self. updated_at.isoformat()
+            'updated_at': self.updated_at.isoformat()
         }
         
         if include_grades:
@@ -49,4 +49,4 @@ class Student(db.Model):
         return data
     
     def __repr__(self):
-        return f'<Student {self.admission_number}:  {self.first_name} {self.last_name}>'
+        return f'<Student {self.admission_number}: {self.first_name} {self.last_name}>'
