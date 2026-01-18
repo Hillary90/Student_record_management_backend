@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required
 from app import db
-from app. models.student import Student
+from app.models.student import Student
 from datetime import datetime
 
 students_bp = Blueprint('students', __name__)
@@ -26,13 +26,13 @@ def get_students():
             db.or_(
                 Student.first_name.ilike(f'%{search}%'),
                 Student.last_name.ilike(f'%{search}%'),
-                Student.admission_number. ilike(f'%{search}%')
+                Student.admission_number.ilike(f'%{search}%')
             )
         )
     
     students = query.all()
     return jsonify({
-        'count':  len(students),
+        'count': len(students),
         'students': [student.to_dict() for student in students]
     }), 200
 
@@ -60,7 +60,7 @@ def create_student():
         return jsonify({'error': 'Missing required fields'}), 400
     
     # Check if admission number already exists
-    if Student. query.filter_by(admission_number=data['admission_number']).first():
+    if Student.query.filter_by(admission_number=data['admission_number']).first():
         return jsonify({'error': 'Admission number already exists'}), 409
     
     try:
@@ -75,10 +75,10 @@ def create_student():
             date_of_birth=dob,
             gender=data['gender'],
             class_name=data['class_name'],
-            email=data. get('email'),
+            email=data.get('email'),
             phone=data.get('phone'),
             address=data.get('address'),
-            guardian_name=data. get('guardian_name'),
+            guardian_name=data.get('guardian_name'),
             guardian_phone=data.get('guardian_phone')
         )
         
@@ -86,11 +86,11 @@ def create_student():
         db.session.commit()
         
         return jsonify({
-            'message':  'Student created successfully',
+            'message': 'Student created successfully',
             'student': student.to_dict()
         }), 201
     except ValueError:
-        return jsonify({'error': 'Invalid date format.  Use YYYY-MM-DD'}), 400
+        return jsonify({'error': 'Invalid date format. Use YYYY-MM-DD'}), 400
     except Exception as e:
         db.session.rollback()
         return jsonify({'error': str(e)}), 500
@@ -104,7 +104,7 @@ def update_student(student_id):
     if not student: 
         return jsonify({'error': 'Student not found'}), 404
     
-    data = request. get_json()
+    data = request.get_json()
     
     try:
         # Update fields if provided
@@ -133,7 +133,7 @@ def update_student(student_id):
         
         return jsonify({
             'message': 'Student updated successfully',
-            'student':  student.to_dict()
+            'student': student.to_dict()
         }), 200
     except ValueError:
         return jsonify({'error': 'Invalid date format. Use YYYY-MM-DD'}), 400
