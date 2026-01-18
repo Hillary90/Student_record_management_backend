@@ -1,15 +1,18 @@
 import os
 from app import create_app, db
 
+# Determine environment:  production on Render, development locally
+env = os.getenv('FLASK_ENV') or os.getenv('RENDER') and 'production' or 'development'
+
 # Create Flask application
-app = create_app(os.getenv('FLASK_ENV', 'development'))
+app = create_app(env)
 
 @app.shell_context_processor
 def make_shell_context():
     """Make database models available in Flask shell"""
-    from app.models import User, Student, Grade
+    from app. models import User, Student, Grade
     return {
-        'db': db,
+        'db':  db,
         'User':  User,
         'Student': Student,
         'Grade': Grade

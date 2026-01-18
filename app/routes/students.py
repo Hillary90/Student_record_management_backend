@@ -6,7 +6,7 @@ from datetime import datetime
 
 students_bp = Blueprint('students', __name__)
 
-@students_bp.route('', methods=['GET'])
+@students_bp.route('/', methods=['GET'])
 @jwt_required()
 def get_students():
     """Get all students with optional filtering"""
@@ -48,7 +48,7 @@ def get_student(student_id):
     include_grades = request.args.get('include_grades', 'false').lower() == 'true'
     return jsonify({'student': student.to_dict(include_grades=include_grades)}), 200
 
-@students_bp.route('', methods=['POST'])
+@students_bp.route('/', methods=['POST'])
 @jwt_required()
 def create_student():
     """Create a new student"""
