@@ -6,15 +6,16 @@ from datetime import datetime, date
 
 def seed_database():
     """Seed the database with sample data"""
-    app = create_app('development')
+    app = create_app()
     
     with app.app_context():
-        # Clear existing data
-        print("Clearing existing data...")
-        Grade.query.delete()
-        Student.query.delete()
-        User.query.delete()
-        db.session.commit()
+        # Only seed if database is empty (prevent overwriting production data)
+        if User.query.count() > 0:
+            print("Database already has users. Skipping seed.")
+            return
+            
+        # Create tables if they don't exist
+        db.create_all()
         
         # Create users
         print("Creating admin user...")
