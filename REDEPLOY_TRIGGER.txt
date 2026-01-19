@@ -1,0 +1,4 @@
+# Force redeploy to pick up JWT_SECRET_KEY environment variable
+# Updated: 2026-01-19 - JWT secret key mismatch fixed
+# Set JWT_SECRET_KEY=3keQwTtDS_5_rI5H6_EbpdNZiXV8EbvEWl5w3kLNjCyTnhQhn3W6A_ElWt_0U55jRgNN6JKb54qV2FjfGi7nRA in production
+# This file can be deleted after successful deployment
