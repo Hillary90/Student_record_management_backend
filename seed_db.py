@@ -1,6 +1,6 @@
 from app import create_app, db
 from app.models.user import User
-from app.models. student import Student
+from app.models.student import Student
 from app.models.grade import Grade
 from datetime import datetime, date
 
@@ -36,7 +36,7 @@ def seed_database():
         db.session.add(admin)
         db.session.add(teacher)
         db.session.commit()
-        print(" Users created!")
+        print("Users created!")
         
         # Get Student model fields
         print("Creating students...")
@@ -48,14 +48,14 @@ def seed_database():
         # Student data
         students_data = [
             {
-                'admission_number':  'STD001',
+                'admission_number': 'STD001',
                 'first_name': 'Peter',
-                'last_name':  'Mburu',
+                'last_name': 'Mburu',
                 'date_of_birth': date(2010, 5, 15),
                 'gender': 'Male',
                 'class_name': 'Grade 8',
                 'email': 'peter.mburu@gmail.com',
-                'phone':  '+2544567890',
+                'phone': '+2544567890',
                 'address': '123000 Kiambu',
                 'guardian_name': 'Jane Mburu',
                 'guardian_phone': '+2544567800'
@@ -67,7 +67,7 @@ def seed_database():
                 'date_of_birth': date(2010, 8, 22),
                 'gender': 'Female',
                 'class_name': 'Grade 8',
-                'email':  'sarah.jeptoo@gmail.com',
+                'email': 'sarah.jeptoo@gmail.com',
                 'phone': '+2544567891',
                 'address': '456-00200 Nairobi',
                 'guardian_name': 'Mike Smith',
@@ -123,12 +123,12 @@ def seed_database():
             db.session.add(student)
         
         db.session.commit()
-        print(f" {len(students)} students created!")
+        print(f"{len(students)} students created!")
         
         # Get Grade model fields
         print("Creating grades...")
         grade_mapper = inspect(Grade)
-        grade_columns = [column. key for column in grade_mapper. attrs]
+        grade_columns = [column.key for column in grade_mapper.attrs]
         print(f"   Grade model has these fields: {grade_columns}")
         
         subjects = ['Mathematics', 'English', 'Science', 'History', 'Geography']
@@ -153,7 +153,7 @@ def seed_database():
                 
                 # Build grade data with only valid fields
                 grade_data = {
-                    'student_id':  student.id,
+                    'student_id': student.id,
                     'subject': subject,
                     'score': score_value,
                 }
@@ -178,19 +178,19 @@ def seed_database():
         print(f"{grades_count} grades created for all students!")
         
         print("\n" + "="*60)
-        print(" DATABASE SEEDED SUCCESSFULLY!")
+        print("DATABASE SEEDED SUCCESSFULLY!")
         print("="*60)
-        print(f"\n Summary:")
-        print(f"   • Users created:  {User.query.count()} (1 admin, 1 teacher)")
-        print(f"   • Students created: {Student. query.count()}")
+        print(f"\nSummary:")
+        print(f"   • Users created: {User.query.count()} (1 admin, 1 teacher)")
+        print(f"   • Students created: {Student.query.count()}")
         print(f"   • Grades created: {Grade.query.count()}")
-        print(f"\n Login Credentials:")
+        print(f"\nLogin Credentials:")
         print("-" * 60)
-        print(" Admin Account:")
+        print("Admin Account:")
         print("   Username: admin")
         print("   Password: admin123")
         print()
-        print(" Teacher Account:")
+        print("Teacher Account:")
         print("   Username: teacher")
         print("   Password: teacher123")
         print("-" * 60)
