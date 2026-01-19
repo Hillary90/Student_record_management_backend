@@ -25,7 +25,7 @@ def seed_database():
         teacher.set_password('teacher123')
         db.session.add(teacher)
         
-        db.session. commit()
+        db.session.commit()
         print("Users created!")
         
         # Create students
@@ -33,25 +33,25 @@ def seed_database():
         students_data = [
             {
                 'admission_number': 'ADM001',
-                'first_name':  'John',
+                'first_name': 'John',
                 'last_name': 'Doe',
                 'date_of_birth': date(2005, 6, 15),
                 'gender': 'Male',
                 'class_name': 'Form 1',
                 'email': 'john.doe@student.school.com',
-                'phone':  '+254712345678',
+                'phone': '+254712345678',
                 'address': '123 School Street, Nairobi',
                 'guardian_name': 'Jane Doe',
-                'guardian_phone':  '+254787654321'
+                'guardian_phone': '+254787654321'
             },
             {
                 'admission_number': 'ADM002',
-                'first_name':  'Mary',
+                'first_name': 'Mary',
                 'last_name': 'Smith',
-                'date_of_birth':  date(2005, 8, 20),
-                'gender':  'Female',
+                'date_of_birth': date(2005, 8, 20),
+                'gender': 'Female',
                 'class_name': 'Form 1',
-                'email': 'mary.smith@student.school. com',
+                'email': 'mary.smith@student.school.com',
                 'phone': '+254723456789',
                 'address': '456 Main Road, Nairobi',
                 'guardian_name': 'Robert Smith',
@@ -65,7 +65,7 @@ def seed_database():
                 'gender': 'Male',
                 'class_name': 'Form 2',
                 'email': 'peter.johnson@student.school.com',
-                'phone':  '+254734567890',
+                'phone': '+254734567890',
                 'address': '789 Park Avenue, Nairobi',
                 'guardian_name': 'Sarah Johnson',
                 'guardian_phone': '+254745678901'
@@ -77,22 +77,22 @@ def seed_database():
                 'date_of_birth': date(2004, 11, 5),
                 'gender': 'Female',
                 'class_name': 'Form 2',
-                'email':  'alice.williams@student. school.com',
+                'email': 'alice.williams@student.school.com',
                 'phone': '+254756789012',
                 'address': '321 River Street, Nairobi',
                 'guardian_name': 'Michael Williams',
                 'guardian_phone': '+254767890123'
             },
             {
-                'admission_number':  'ADM005',
+                'admission_number': 'ADM005',
                 'first_name': 'David',
-                'last_name':  'Brown',
+                'last_name': 'Brown',
                 'date_of_birth': date(2003, 7, 22),
                 'gender': 'Male',
                 'class_name': 'Form 3',
-                'email': 'david. brown@student.school.com',
+                'email': 'david.brown@student.school.com',
                 'phone': '+254778901234',
-                'address':  '555 Hill Road, Nairobi',
+                'address': '555 Hill Road, Nairobi',
                 'guardian_name': 'Linda Brown',
                 'guardian_phone': '+254789012345'
             },
@@ -105,14 +105,14 @@ def seed_database():
             students.append(student)
         
         db.session.commit()
-        print(f" {len(students)} students created!")
+        print(f"{len(students)} students created!")
         
         # Create grades
         print("Creating grades...")
         subjects = ['Mathematics', 'English', 'Science', 'History', 'Geography']
         
         import random
-        for student in students: 
+        for student in students:
             for subject in subjects: 
                 score = random.randint(60, 100)
                 
@@ -128,8 +128,7 @@ def seed_database():
                 db.session.add(grade)
         
         db.session.commit()
-        print(f" Grades created for all students!")
-        
-    
+        print(f"Grades created for all students!")
+
 if __name__ == '__main__':
     seed_database()
