@@ -10,8 +10,8 @@ class Grade(db.Model):
     subject = db.Column(db.String(100), nullable=False)
     score = db.Column(db.Float, nullable=False)
     max_score = db.Column(db.Float, default=100.0)
-    term = db.Column(db.String(50), nullable=False)  # e.g., "Term 1", "Semester 1"
-    year = db.Column(db.Integer, nullable=False)
+    term = db.Column(db.String(50), nullable=False, default='Term 1')  
+    year = db.Column(db.Integer, nullable=False, default=2024)
     remarks = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
