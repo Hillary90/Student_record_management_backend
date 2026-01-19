@@ -27,7 +27,7 @@ def create_app(config_name='default'):
     
     # Configure CORS with explicit settings for preflight requests
     CORS(app, 
-         resources={r"/api/*": {"origins":  app.config['CORS_ORIGINS']}},
+         resources={r"/api/*": {"origins": app.config['CORS_ORIGINS']}},
          supports_credentials=True,
          allow_headers=['Content-Type', 'Authorization'],
          methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -49,15 +49,15 @@ def create_app(config_name='default'):
     # JWT user lookup callback
     from app.models.user import User
     
-    @jwt. user_lookup_loader
+    @jwt.user_lookup_loader
     def user_lookup_callback(_jwt_header, jwt_data):
         """Load user from JWT token"""
         identity = jwt_data["sub"]
-        return User.query. filter_by(id=identity).one_or_none()
+        return User.query.filter_by(id=identity).one_or_none()
     
     # Register blueprints
     from app.routes.auth import auth_bp
-    from app. routes.students import students_bp
+    from app.routes.students import students_bp
     from app.routes.grades import grades_bp
     
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
