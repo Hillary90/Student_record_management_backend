@@ -5,7 +5,7 @@ A Flask-based REST API for managing student records, grades, and user authentica
 
 ## Live Link 
 
-https://github.com/Hillary90/Student_record_management_backend.git
+https://student-record-management-backend-2akg.onrender.com
 
 ## Features
 
