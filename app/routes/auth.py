@@ -5,6 +5,18 @@ from app.models.user import User
 
 auth_bp = Blueprint('auth', __name__)
 
+@auth_bp.route('/', methods=['GET'])
+def auth_info():
+    
+    return jsonify({
+        'message': 'Authentication API',
+        'endpoints': {
+            'register': '/api/auth/register (POST)',
+            'login': '/api/auth/login (POST)',
+            'profile': '/api/auth/me (GET)'
+        }
+    }), 200
+
 @auth_bp.route('/register', methods=['POST'])
 def register():
     """Register a new user (Admin/Teacher)"""
