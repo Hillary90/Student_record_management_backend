@@ -64,6 +64,20 @@ def create_app(config_name='default'):
     app.register_blueprint(students_bp, url_prefix='/api/students')
     app.register_blueprint(grades_bp, url_prefix='/api/grades')
     
+    @app.route('/')
+    def index():
+        return {
+            'message': 'Student Record Management API',
+            'version': '1.0.0',
+            'status': 'running',
+            'endpoints': {
+                'health': '/api/health',
+                'auth': '/api/auth',
+                'students': '/api/students',
+                'grades': '/api/grades'
+            }
+        }, 200
+    
     # Health check route
     @app.route('/api/health')
     def health_check():
